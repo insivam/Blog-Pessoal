@@ -1,0 +1,13 @@
+.titulo{
+    font-size: 30px;
+    font-weight: bold;
+    color: #006699;
+    text-align: center;
+}
+
+.img{
+    width: 500px;
+    height: 500px;
+    display: block;
+    margin: 0 auto;
+}
