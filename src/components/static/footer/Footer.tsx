@@ -33,23 +33,53 @@ function Footer() {
               </Typography>
             </Box>
             <Box display="flex" alignItems="center" justifyContent="center">
-              <a
-                href="https://www.facebook.com/generationbrasil"
-                target="_blank"
-              >
-                <FacebookIcon className="redes" />
+              <a href="https://github.com/alinerasche">
+                <img
+                  src="https://i.imgur.com/dSnD5bF.png"
+                  alt="Aline"
+                  height="60"
+                  width="60"
+                />
               </a>
-              <a
-                href="https://www.instagram.com/generationbrasil/"
-                target="_blank"
-              >
-                <InstagramIcon className="redes" />
+              <a href="https://github.com/DayanaTito">
+                <img
+                  src="https://i.imgur.com/dSnD5bF.png"
+                  alt="Dayana"
+                  height="60"
+                  width="60"
+                />
               </a>
-              <a
-                href="https://www.linkedin.com/school/generationbrasil/"
-                target="_blank"
-              >
-                <LinkedInIcon className="redes" />
+              <a href="https://github.com/igorcanunes">
+                <img
+                  src="https://i.imgur.com/dSnD5bF.png"
+                  alt="Igor"
+                  height="60"
+                  width="60"
+                />
+              </a>
+              <a href="https://github.com/insivam">
+                <img
+                  src="https://i.imgur.com/dSnD5bF.png"
+                  alt="Vitor"
+                  height="60"
+                  width="60"
+                />
+              </a>
+              <a href="https://github.com/milenaFO">
+                <img
+                  src="https://i.imgur.com/dSnD5bF.png"
+                  alt="Milena"
+                  height="60"
+                  width="60"
+                />
+              </a>
+              <a href="https://github.com/willjpg">
+                <img
+                  src="https://i.imgur.com/dSnD5bF.png"
+                  alt="Willian"
+                  height="60"
+                  width="60"
+                />
               </a>
             </Box>
           </Box>
@@ -61,11 +91,11 @@ function Footer() {
                 gutterBottom
                 className="textos"
               >
-                © 2020 Copyright:
+                © 2022 Copyright:
               </Typography>
             </Box>
             <Box>
-              <a target="_blank" href="https://brasil.generation.org">
+              <a target="_blank" href="https://github.com/Discoleta">
                 <Typography
                   variant="subtitle2"
                   gutterBottom

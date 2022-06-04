@@ -1,67 +1,134 @@
-import { Button, Grid, Typography } from "@material-ui/core";
-import { Box } from "@mui/material";
-import React from "react";
-
+import React, { useState, useEffect, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import User from "../../models/User";
+import { cadastroUsuario } from "../../services/Service";
+import { Grid, Typography, Button, TextField } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import "./CadastroUsuario.css";
+import { Box } from "@mui/system";
 
 function CadastroUsuario() {
+  let navigate = useNavigate();
+  const [confirmarSenha, setConfirmarSenha] = useState<String>("");
+  const [user, setUser] = useState<User>({
+    id: 0,
+    nome: "",
+    usuario: "",
+    senha: "",
+  });
+
+  const [userResult, setUserResult] = useState<User>({
+    id: 0,
+    nome: "",
+    usuario: "",
+    senha: "",
+  });
+
+  useEffect(() => {
+    if (userResult.id != 0) {
+      navigate("/login");
+    }
+  }, [userResult]);
+
+  function confirmarSenhaHandle(e: ChangeEvent<HTMLInputElement>) {
+    setConfirmarSenha(e.target.value);
+  }
+
+  function updatedModel(e: ChangeEvent<HTMLInputElement>) {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  }
+  async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (confirmarSenha == user.senha) {
+      cadastroUsuario(`/usuarios/cadastrar`, user, setUserResult);
+      alert("Usuario cadastrado com sucesso");
+    } else {
+      alert(
+        "Dados inconsistentes. Favor verificar as informações de cadastro."
+      );
+    }
+  }
   return (
-    <>
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        style={{ backgroundColor: "#3F51B5" }}
-      >
-        <Grid alignItems="center" item xs={6}>
-          <Box paddingX={20}>
+    <Grid container direction="row" justifyContent="center" alignItems="center">
+      <Grid item xs={6} className="imagem2"></Grid>
+      <Grid item xs={6} alignItems="center">
+        <Box paddingX={10}>
+          <form onSubmit={onSubmit}>
             <Typography
               variant="h3"
               gutterBottom
               color="textPrimary"
               component="h3"
               align="center"
-              style={{ color: "white", fontWeight: "bold" }}
+              className="textos2"
             >
-              Seja bem vindo(a)!
+              Cadastrar
             </Typography>
-            <Typography
-              variant="h5"
-              gutterBottom
-              color="textPrimary"
-              component="h5"
-              align="center"
-              style={{ color: "white", fontWeight: "bold" }}
-            >
-              expresse aqui os seus pensamentos e opiniões!
-            </Typography>
-          </Box>
-          <Box display="flex" justifyContent="center">
-            <Box marginRight={1}></Box>
-            <Button
+            <TextField
+              value={user.nome}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
+              id="nome"
+              label="nome"
               variant="outlined"
-              style={{
-                borderColor: "white",
-                backgroundColor: "#3F51B5",
-                color: "white",
-              }}
-            >
-              Ver Postagens
-            </Button>
-          </Box>
-        </Grid>
-        <Grid item xs={6}>
-          <img
-            src="https://i.imgur.com/H88yIo2.png"
-            alt=""
-            width="500px"
-            height="500px"
-          />
-        </Grid>
-        <Grid xs={12} style={{ backgroundColor: "white" }}></Grid>
+              name="nome"
+              margin="normal"
+              fullWidth
+            />
+            <TextField
+              value={user.usuario}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
+              id="usuario"
+              label="usuario"
+              variant="outlined"
+              name="usuario"
+              margin="normal"
+              fullWidth
+            />
+            <TextField
+              value={user.senha}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
+              id="senha"
+              label="senha"
+              variant="outlined"
+              name="senha"
+              margin="normal"
+              type="password"
+              fullWidth
+            />
+            <TextField
+              value={confirmarSenha}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                confirmarSenhaHandle(e)
+              }
+              id="confirmarSenha"
+              label="confirmarSenha"
+              variant="outlined"
+              name="confirmarSenha"
+              margin="normal"
+              type="password"
+              fullWidth
+            />
+            <Box marginTop={2} textAlign="center">
+              <Link to="/login" className="text-decorator-none">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className="btnCancelar"
+                >
+                  Cancelar
+                </Button>
+              </Link>
+              <Button type="submit" variant="contained" color="primary">
+                Cadastrar
+              </Button>
+            </Box>
+          </form>
+        </Box>
       </Grid>
-    </>
+    </Grid>
   );
 }
 
