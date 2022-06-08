@@ -14,6 +14,7 @@ import { busca } from "../../../services/Service";
 import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { TokenState } from "../../../store/tokens/tokensReducer";
+import { toast } from "react-toastify";
 
 function ListaTema() {
   let navigate = useNavigate();
@@ -24,7 +25,15 @@ function ListaTema() {
 
   useEffect(() => {
     if (token == "") {
-      alert("Você precisa estar logado");
+      toast.success("Você precisa estar logado!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
       navigate("/login");
     }
   }, [token]);
