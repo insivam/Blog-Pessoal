@@ -1,22 +1,18 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button, Grid, TextField, Typography } from "@material-ui/core";
+import React, { ChangeEvent, useState, useEffect } from "react";
+import { Grid, Typography, TextField, Button } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
-import useLocalStorage from "react-use-localstorage";
-
-import UserLogin from "../../models/UserLogin";
 import { login } from "../../services/Service";
-
+import UserLogin from "../../models/UserLogin";
 import "./Login.css";
+import { useDispatch } from "react-redux";
+import { addToken } from "../../store/tokens/actions";
+import { toast } from "react-toastify";
 import { Box } from "@mui/material";
 
 function Login() {
-  // Redireciona o usuário para determinada pagina
-  let history = useNavigate();
-
-  // Hooks que vão manipular o nosso Local Storage para gravar o Token
-  const [token, setToken] = useLocalStorage("token");
-
-  // useState define como uma determinada variavel será inicializada quando o Comp. for renderizado
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [token, setToken] = useState("");
   const [userLogin, setUserLogin] = useState<UserLogin>({
     id: 0,
     usuario: "",
@@ -24,14 +20,6 @@ function Login() {
     token: "",
   });
 
-  // Hook de efeito colateral, sempre executa uma função quando o que estiver no seu Array é alterado
-  useEffect(() => {
-    if (token !== "") {
-      history("/home");
-    }
-  }, [token]);
-
-  // Função que junto com a setUserLogin irá atualizar o valor inicial da userLogin
   function updatedModel(e: ChangeEvent<HTMLInputElement>) {
     setUserLogin({
       ...userLogin,
@@ -39,22 +27,52 @@ function Login() {
     });
   }
 
-  async function logar(e: ChangeEvent<HTMLFormElement>) {
+  useEffect(() => {
+    if (token != "") {
+      dispatch(addToken(token));
+      navigate("/home");
+    }
+  }, [token]);
+  async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
 
     try {
       await login(`/usuarios/logar`, userLogin, setToken);
-      alert("Usuário logado com sucesso");
+      toast.success("Usuário logado com sucesso", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: "colored",
+        progress: undefined,
+      });
     } catch (error) {
-      alert("Dados do usuário inconsistentes");
+      toast.error("Dados do usuário inconsistentes. Erro ao logar", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: "colored",
+        progress: undefined,
+      });
     }
   }
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
+    <Grid
+      container
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+      className="fundoLogin"
+    >
       <Grid alignItems="center" xs={6}>
         <Box paddingX={20}>
-          <form onSubmit={logar}>
+          <form onSubmit={onSubmit}>
             <Typography
               variant="h3"
               gutterBottom
@@ -90,24 +108,23 @@ function Login() {
             />
 
             <Box marginTop={2} textAlign="center">
-              <Button type="submit" variant="contained" color="primary">
+              <Button type="submit" variant="contained" className="botaoLogin">
                 Logar
               </Button>
             </Box>
           </form>
-
           <Box display="flex" justifyContent="center" marginTop={2}>
             <Box marginRight={1}>
               <Typography variant="subtitle1" gutterBottom align="center">
                 Não tem uma conta?
               </Typography>
             </Box>
-            <Link to="/cadastro">
+            <Link to="/cadastrousuario" className="text-decorator-none">
               <Typography
                 variant="subtitle1"
                 gutterBottom
                 align="center"
-                className="textos1"
+                className="textos1 "
               >
                 Cadastre-se
               </Typography>
