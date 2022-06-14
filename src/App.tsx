@@ -30,7 +30,7 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/cadastrousuario" element={<CadastroUsuario />} />
+            <Route path="/cadastro" element={<CadastroUsuario />} />
             <Route path="/temas" element={<Temas />} />
             <Route path="/posts" element={<ListaPostagem />} />
             <Route path="/forumularioPostagem" element={<CadastroPost />} />
