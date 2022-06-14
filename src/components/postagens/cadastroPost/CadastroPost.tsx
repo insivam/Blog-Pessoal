@@ -20,27 +20,12 @@ import { TokenState } from "../../../store/tokens/tokensReducer";
 import { toast } from "react-toastify";
 
 function CadastroPost() {
-  let history = useNavigate();
+  let navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [temas, setTemas] = useState<Tema[]>([]);
   const token = useSelector<TokenState, TokenState["tokens"]>(
     (state) => state.tokens
   );
-
-  useEffect(() => {
-    if (token === "") {
-      toast.error("Você precisa estar logado!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-      });
-      history("/login");
-    }
-  }, [token]);
 
   const [tema, setTema] = useState<Tema>({
     id: 0,
@@ -53,6 +38,21 @@ function CadastroPost() {
     data: "",
     tema: null,
   });
+
+  useEffect(() => {
+    if (token === "") {
+      toast.error("Você precisa estar logado!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
+      navigate("/login");
+    }
+  }, [token]);
 
   useEffect(() => {
     setPostagem({
@@ -96,41 +96,65 @@ function CadastroPost() {
     e.preventDefault();
 
     if (id != undefined) {
-      put(`/postagens`, postagem, setPostagem, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      toast.success("Postagem atualizada com sucesso!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-      });
+      try {
+        await put(`/postagens`, postagem, setPostagem, {
+          headers: {
+            Authorization: token,
+          },
+        });
+        toast.success("Postagem atualizada com sucesso!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+      } catch (e) {
+        toast.error("Erro na postagem!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+      }
     } else {
-      post(`/postagens`, postagem, setPostagem, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      toast.success("Postagem cadastrada com sucesso!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-      });
+      try {
+        await post(`/postagens`, postagem, setPostagem, {
+          headers: {
+            Authorization: token,
+          },
+        });
+        toast.success("Postagem cadastrada com sucesso!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+      } catch (e) {
+        toast.error("Erro na postagem!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+      }
     }
     back();
   }
 
   function back() {
-    history("/posts");
+    navigate("/posts");
   }
   return (
     <Container maxWidth="sm" className="topo">

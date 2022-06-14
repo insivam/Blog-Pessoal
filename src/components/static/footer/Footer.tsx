@@ -38,52 +38,12 @@ function Footer() {
               </Typography>
             </Box>
             <Box display="flex" alignItems="center" justifyContent="center">
-              <a href="https://github.com/alinerasche">
+              <a href="https://github.com/insivam" target="_blank">
                 <img
-                  src="https://i.imgur.com/dSnD5bF.png"
-                  alt="Aline"
-                  height="60"
-                  width="60"
-                />
-              </a>
-              <a href="https://github.com/DayanaTito">
-                <img
-                  src="https://i.imgur.com/dSnD5bF.png"
-                  alt="Dayana"
-                  height="60"
-                  width="60"
-                />
-              </a>
-              <a href="https://github.com/igorcanunes">
-                <img
-                  src="https://i.imgur.com/dSnD5bF.png"
-                  alt="Igor"
-                  height="60"
-                  width="60"
-                />
-              </a>
-              <a href="https://github.com/insivam">
-                <img
-                  src="https://i.imgur.com/dSnD5bF.png"
+                  src="https://i.imgur.com/TOOJuII.png"
                   alt="Vitor"
-                  height="60"
-                  width="60"
-                />
-              </a>
-              <a href="https://github.com/milenaFO">
-                <img
-                  src="https://i.imgur.com/dSnD5bF.png"
-                  alt="Milena"
-                  height="60"
-                  width="60"
-                />
-              </a>
-              <a href="https://github.com/willjpg">
-                <img
-                  src="https://i.imgur.com/dSnD5bF.png"
-                  alt="Willian"
-                  height="60"
-                  width="60"
+                  height="70"
+                  width="70"
                 />
               </a>
             </Box>
